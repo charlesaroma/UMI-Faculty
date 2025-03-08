@@ -2,7 +2,11 @@
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'], // Removed .ts, .tsx
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'inter': ['Inter', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 };

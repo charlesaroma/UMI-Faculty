@@ -5,7 +5,7 @@ import SSearch from "./SSearch";
 import STable from "./STable";
 import SPageSize from "./SPageSize";
 import SPagination from "./SPagination";
-import { studentsData } from "./SData";
+import { studentsData } from "./StudentsData";
 
 const StudentsManagement = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -39,7 +39,7 @@ const StudentsManagement = () => {
   const paginatedStudents = filteredStudents.slice(startIndex, startIndex + pageSize);
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-6">
       {/* Top Search Bar */}
       <div>
         <SSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
