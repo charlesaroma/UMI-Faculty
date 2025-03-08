@@ -1,6 +1,6 @@
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
 import { useNavigate } from 'react-router-dom';
-import SToolTip from "./SToolTip";
+import SToolTip from "./SToolTip.jsx";
 
 // Add this school mapping inside your component or better yet, in a separate file
 const schoolNames = {

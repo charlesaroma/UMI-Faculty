@@ -5,8 +5,8 @@ import { HiArrowLeft } from "react-icons/hi";
 import { HiOutlineChartBar, HiOutlineCog } from "react-icons/hi";
 import { useNavigate, useParams } from "react-router-dom";
 import { studentsData } from "./StudentsData";
-import Progress from "./Progress";
-import AccountSettings from "./AccountSettings";
+import Progress from "./Progress.jsx";
+import AccountSettings from "./AccountSettings.jsx";
 
 const SearchBar = ({ value, onChange, placeholder = "Search" }) => {
   return (
