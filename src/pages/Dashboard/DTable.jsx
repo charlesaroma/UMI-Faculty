@@ -25,7 +25,7 @@ const columns = [
     header: "Category",
     cell: ({ row }) => (
       <span
-        className={`px-2 py-1 text-xs font-semibold rounded-full ${
+        className={`px-2 py-1 text-xs font-semibold rounded-md ${
           row.original.category === "PhD"
             ? "bg-yellow-200 text-yellow-800"
             : "bg-orange-200 text-orange-800"
@@ -39,7 +39,7 @@ const columns = [
     accessorKey: "status",
     header: "Status",
     cell: () => (
-      <span className="px-2 py-1 text-xs font-semibold rounded-full border border-gray-400 text-gray-700">
+      <span className="px-2 py-1 text-xs font-semibold rounded-md border border-gray-400 text-gray-700">
         Workshop
       </span>
     ),

@@ -1,6 +1,6 @@
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
 import { useNavigate } from 'react-router-dom';
-import SToolTip from "./SToolTip.jsx";
+import GToolTip from "./GToolTip.jsx";
 
 // Add this school mapping inside your component or better yet, in a separate file
 const schoolNames = {
@@ -11,7 +11,7 @@ const schoolNames = {
   'RC': 'Regional Centres'
 };
 
-const STable = ({ students }) => {
+const GTable = ({ students }) => {
   const navigate = useNavigate();
 
   const getStatusStyle = (status) => {
@@ -44,7 +44,7 @@ const STable = ({ students }) => {
         return (
           <div className="flex items-center gap-1">
             {schoolCode}
-            <SToolTip text={fullSchoolName} />
+            <GToolTip text={fullSchoolName} />
           </div>
         );
       }
@@ -123,4 +123,4 @@ const STable = ({ students }) => {
   );
 };
 
-export default STable;
+export default GTable;

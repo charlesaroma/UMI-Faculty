@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { format } from "date-fns";
 import STabs from "./STabs";
 import SStats from "./SStats";
 import SSearch from "./SSearch";
@@ -49,7 +50,9 @@ const StudentsManagement = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-semibold">Postgraduate Students Records</h1>
-        <span className="text-sm text-gray-500">Last login: 08-09-2024 15:23:42PM</span>
+        <span className="text-sm text-gray-500">
+          Last login: {format(new Date(), "MM-dd-yyyy hh:mm:ssaa")}
+        </span>
       </div>
 
       {/* Stats */}
@@ -61,7 +64,7 @@ const StudentsManagement = () => {
         <STabs selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
 
         {/* Search Input & Page Size Dropdown */}
-        <div className="flex justify-between items-center mt-4">
+        <div className="flex justify-between items-center my-4">
           <SSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           <SPageSize pageSize={pageSize} setPageSize={setPageSize} />
         </div>

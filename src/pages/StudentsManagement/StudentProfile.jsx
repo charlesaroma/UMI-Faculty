@@ -77,7 +77,7 @@ const StudentProfile = () => {
     <div ref={containerRef} className="min-h-full bg-gray-50">
       <div className="flex flex-col">
         {/* Global Search */}
-        <div className="p-6 pb-0 w-1/2">
+        <div className="p-4 pb-0 w-1/2">
           <SearchBar
             value={searchQuery}
             onChange={setSearchQuery}

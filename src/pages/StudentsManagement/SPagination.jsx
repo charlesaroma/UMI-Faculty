@@ -1,4 +1,4 @@
-const SPagination = ({ totalItems, pageSize, setPageSize, currentPage, setCurrentPage }) => {
+const SPagination = ({ totalItems, pageSize, currentPage, setCurrentPage }) => {
   const totalPages = Math.ceil(totalItems / pageSize);
 
   // Handle Previous Button Click
