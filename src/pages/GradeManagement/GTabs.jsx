@@ -1,26 +1,31 @@
-const GTabs = ({ selectedCategory, setSelectedCategory }) => {
-    const categories = ["All Students", "Postgrad. Diploma", "Masters", "PhD"];
-  
-    return (
-      <div className="relative border-b">
-        <div className="flex space-x-6">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`relative px-3 py-2 text-sm transition-colors duration-300 ${
-                selectedCategory === category
-                  ? "text-[#23388F] font-semibold after:absolute after:left-0 after:bottom-0 after:w-full after:h-[2px] after:bg-[#23388F]"
-                  : "text-gray-600 hover:text-gray-900 hover:after:absolute hover:after:left-0 hover:after:bottom-0 hover:after:w-full hover:after:h-[2px] hover:after:bg-gray-400"
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-      </div>
-    );
-  };
-  
-  export default GTabs;
+const GTabs = ({ activeTab, setActiveTab }) => {
+  return (
+    <div className="border-b border-gray-200">
+      <nav className="-mb-px flex space-x-8">
+        <button
+          onClick={() => setActiveTab("Proposal Defense")}
+          className={`whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium ${
+            activeTab === "Proposal Defense"
+              ? "border-indigo-500 text-indigo-600"
+              : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
+          }`}
+        >
+          Proposal Defense
+        </button>
+        <button
+          onClick={() => setActiveTab("Book Examination")}
+          className={`whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium ${
+            activeTab === "Book Examination"
+              ? "border-indigo-500 text-indigo-600"
+              : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
+          }`}
+        >
+          Book Examination
+        </button>
+      </nav>
+    </div>
+  );
+};
+
+export default GTabs;
   

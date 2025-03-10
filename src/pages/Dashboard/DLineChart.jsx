@@ -18,7 +18,7 @@ const data = [
 ];
 
 export const DLineChart = () => (
-  <div className="bg-white w-full p-4 rounded-lg shadow">
+  <div className="bg-white w-3/5 p-4 rounded-lg shadow">
     <div className="flex justify-between items-center mb-2">
         <select className="border rounded-md p-2 w-60 text-sm">
           <option>Web Engagement</option>
