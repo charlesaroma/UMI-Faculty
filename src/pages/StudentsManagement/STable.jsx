@@ -88,7 +88,7 @@ const STable = ({ students }) => {
   });
 
   return (
-    <div className="overflow-x-auto bg-white shadow rounded-lg">
+    <div className="overflow-x-auto bg-white shadow-md rounded-lg">
       <table className="w-full">
         <thead className="bg-gray-50">
           {table.getHeaderGroups().map((headerGroup) => (

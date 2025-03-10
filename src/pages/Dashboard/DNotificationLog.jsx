@@ -28,7 +28,7 @@ const DNotificationLog = () => {
   const [activeTab, setActiveTab] = useState('feed');
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow min-w-80">
+    <div className="bg-white p-4 rounded-lg shadow-md min-w-80">
       <div className="flex justify-between items-center mb-2">
         <h2 className="text-lg font-semibold">Notification Log</h2>
         <button className="bg-[#23388F] text-white px-3 py-1 rounded-md text-sm flex items-center">

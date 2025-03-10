@@ -58,7 +58,7 @@ const DTable = () => {
   });
 
   return (
-    <div className="bg-white w-full p-4 rounded-lg shadow">
+    <div className="bg-white w-full p-4 rounded-lg shadow-md">
       {/* Header */}
       <div className="flex flex-col space-y-2 mb-2">
         <h2 className="text-lg font-semibold">Recently Added</h2>

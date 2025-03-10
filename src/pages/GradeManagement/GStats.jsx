@@ -5,13 +5,13 @@ const GStats = ({ activeTab }) => {
 
   return (
     <div className="grid grid-cols-3 gap-4">
-      <div className="bg-white p-4 rounded-lg shadow">
+      <div className="bg-white p-4 rounded-lg shadow-md">
         <div className="text-3xl font-bold">{isBookExamination ? "21" : "45"}</div>
         <div className="text-sm text-gray-500">
           {isBookExamination ? "Books Submitted" : "Proposals Submitted"}
         </div>
       </div>
-      <div className="bg-white p-4 rounded-lg shadow">
+      <div className="bg-white p-4 rounded-lg shadow-md">
         <div className="text-3xl font-bold">{isBookExamination ? "12" : "14"}</div>
         <div className="text-sm text-gray-500">
           <div className="flex items-center gap-1">
@@ -20,7 +20,7 @@ const GStats = ({ activeTab }) => {
           </div>
         </div>
       </div>
-      <div className="bg-white p-4 rounded-lg shadow">
+      <div className="bg-white p-4 rounded-lg shadow-md">
         <div className="text-3xl font-bold">26</div>
         <div className="text-sm text-gray-500">
           <div className="flex items-center gap-1">

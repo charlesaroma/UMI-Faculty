@@ -32,46 +32,37 @@ const StudentProfile = () => {
   const { id } = useParams();
   const containerRef = useRef(null);
 
-  console.log("ID from params:", id);
-  console.log("DUMMY_DATA:", studentsData);
-
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.scrollIntoView({ behavior: "instant" });
     }
   }, [id, activeTab]);
 
-  // Use a default student object if none is found
-  const defaultStudent = {
-    id: "0",
-    fullname: "Jenny Wilson",
-    email: "jenny.wilson@gmail.com",
-    campus: "Kampala",
-    schoolCode: "SDLIT",
-    category: "Masters",
-    status: "Workshop",
-    supervisor: "Prof. Benjamin Russel",
-    dateOfAdmission: "29/01/2025",
-    currentStatus: "Under Examination",
-    totalTime: "120 days",
-    phone: "(312) 721-700",
-    studentId: "STU2023001",
-    department: "Computer Science",
-    courseDetails: {
-      courseName: "Master of Science in Computer Science",
-      startDate: "2024-01-15",
-      expectedEndDate: "2026-01-15",
-      status: "Active"
-    }
-  };
-
   const studentData = useMemo(() => {
-    const found = studentsData.find((student) => student.id === id);
-    console.log("Found student:", found);
-    return found || defaultStudent;
+    return studentsData.find((student) => student.id === id);
   }, [id]);
 
-  console.log("Final studentData:", studentData);
+  // If no student is found, redirect back or show error
+  if (!studentData) {
+    return (
+      <div className="min-h-full bg-gray-50 p-6">
+        <div className="bg-white p-4 rounded-lg shadow-sm">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => navigate(-1)}
+              className="inline-flex items-center px-4 py-2 bg-[#23388F] text-white rounded-lg gap-2 hover:bg-blue-600"
+            >
+              <HiArrowLeft className="w-5 h-5" />
+              Back
+            </button>
+            <span className="text-lg font-medium text-gray-900">
+              Student not found
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div ref={containerRef} className="min-h-full bg-gray-50">
@@ -100,7 +91,7 @@ const StudentProfile = () => {
 
         {/* Control Panel */}
         <div className="px-6 py-4 mb-4">
-          <div className="bg-white p-4 rounded-lg shadow-sm">
+          <div className="bg-white p-4 rounded-lg shadow-md">
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-4">
                 <button
@@ -118,11 +109,7 @@ const StudentProfile = () => {
                 <button
                   onClick={() => setActiveTab("progress")}
                   className={`inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium gap-2 text-semantic-text-primary border-2
-                    ${
-                      activeTab === "progress"
-                        ? "border-[#23388F]"
-                        : "border-[#C4C5C6]"
-                    }`}
+                    ${activeTab === "progress" ? "border-[#23388F]" : "border-[#C4C5C6]"}`}
                 >
                   <HiOutlineChartBar className="w-5 h-5 text-[#626263]" />
                   Progress
@@ -130,11 +117,7 @@ const StudentProfile = () => {
                 <button
                   onClick={() => setActiveTab("settings")}
                   className={`inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium gap-2 text-[#070B1D] border-2
-                    ${
-                      activeTab === "settings"
-                        ? "border-[#23388F]"
-                        : "border-[#C4C5C6]"
-                    }`}
+                    ${activeTab === "settings" ? "border-[#23388F]" : "border-[#C4C5C6]"}`}
                 >
                   <HiOutlineCog className="w-5 h-5 text-[#626263]" />
                   Account Settings
@@ -146,9 +129,7 @@ const StudentProfile = () => {
 
         {/* Content based on active tab */}
         {activeTab === "progress" && <Progress studentData={studentData} />}
-        {activeTab === "settings" && (
-          <AccountSettings studentData={studentData} />
-        )}
+        {activeTab === "settings" && <AccountSettings studentData={studentData} />}
       </div>
     </div>
   );

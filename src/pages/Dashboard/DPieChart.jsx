@@ -27,7 +27,7 @@ const DPieChart = () => {
   const [selectedOption] = useState("Status report");
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow w-[460px]">
+    <div className="bg-white p-4 rounded-lg shadow-md w-[460px]">
       {/* Dropdown Header */}
       <div className="relative mb-3">
         <button className="w-52 flex justify-between items-center px-3 py-2 border rounded-md text-sm bg-white">
