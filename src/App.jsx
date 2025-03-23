@@ -1,36 +1,92 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/Login/Login';
-import ResetPassword from './pages/ResetPassword/ResetPassword';
-import DashboardLayout from './layouts/DashboardLayout';
-import Dashboard from './pages/Dashboard/Dashboard';
-import StudentsManagement from './pages/StudentsManagement/StudentsManagement';
-import GradeManagement from './pages/GradeManagement/GradeManagement';
-import Notifications from './pages/Notification/Notifications';
-import Settings from './pages/Settings/Settings';
-import UserRoles from './pages/UserRoles/UserRoles';
-import StudentProfile from './pages/StudentsManagement/StudentProfile';
-import ScrollToTopWrapper from './components/ScrollToTopWrapper';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import Login from "./pages/Auth/Login.jsx";
+import ResetPassword from "./pages/Auth/ResetPassword.jsx";
+import DashboardLayout from "./layouts/DashboardLayout.jsx";
+import Dashboard from "./pages/Dashboard/Dashboard.jsx";
+import StudentsManagement from "./pages/StudentsManagement/StudentsManagement.jsx";
+import GradeManagement from "./pages/GradeManagement/GradeManagement.jsx";
+import Notifications from "./pages/Notification/Notifications.jsx";
+import Settings from "./pages/Settings/Settings.jsx";
+import UserRoles from "./pages/UserRoles/UserRoles.jsx";
+import StudentProfile from "./pages/StudentsManagement/StudentProfile.jsx";
+import ScrollToTopWrapper from "./components/ScrollToTopWrapper.jsx";
+import { AuthProvider } from "./store/context/AuthContext.jsx";
+import { useAuth } from "./store/context/AuthContext.jsx";
+
+
+// PublicRoute: Redirects authenticated users away from public pages (like login)
+// If user is authenticated, redirects to dashboard
+// If user is not authenticated, shows the public page content
+const PublicRoute = ({ children }) => {
+  const { token } = useAuth();
+  return token ? (
+    <Navigate to="/dashboard" replace />
+  ) : (
+    children
+  );
+};
+
+// ProtectedRoute: Protects private routes from unauthenticated access
+// If user is authenticated, shows the protected content
+// If user is not authenticated, redirects to login page
+const ProtectedRoute = ({ children }) => {
+  const { token } = useAuth();
+  return token ? children : <Navigate to="/login" replace />;
+};
 
 function App() {
   return (
-    <Router>
-      <ScrollToTopWrapper>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/dashboard" element={<DashboardLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="students" element={<StudentsManagement />} />
-            <Route path="students/:id" element={<StudentProfile />} />
-            <Route path="grades" element={<GradeManagement />} />
-            <Route path="notifications" element={<Notifications />} />
-            <Route path="user-roles" element={<UserRoles />} />
-            <Route path="settings" element={<Settings />} />
-          </Route>
-          <Route path="/" element={<Navigate to="/login" replace />} />
-        </Routes>
-      </ScrollToTopWrapper>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <ScrollToTopWrapper>
+          <Routes>
+            {/* Public Routes */}
+            <Route
+              path="/login"
+              element={
+                <PublicRoute>
+                  <Login />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/reset-password"
+              element={
+                <PublicRoute>
+                  <ResetPassword />
+                </PublicRoute>
+              }
+            />
+
+            {/* Protected Routes */}
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                   <DashboardLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Dashboard />} />
+              <Route path="students" element={<StudentsManagement />} />
+              <Route path="students/:id" element={<StudentProfile />} />
+              <Route path="grades" element={<GradeManagement />} />
+              <Route path="notifications" element={<Notifications />} />
+              <Route path="user-roles" element={<UserRoles />} />
+              <Route path="settings" element={<Settings />} />
+            </Route>
+
+            {/* Default Route */}
+            {/* <Route path="/" element={<Navigate to="/login" replace />} /> */}
+          </Routes>
+        </ScrollToTopWrapper>
+      </Router>
+    </AuthProvider>
   );
 }
 
