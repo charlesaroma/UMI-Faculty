@@ -2,59 +2,38 @@ import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-tabl
 import { useNavigate } from 'react-router-dom';
 import SToolTip from "./SToolTip.jsx";
 
-// Add this school mapping inside your component or better yet, in a separate file
-const schoolNames = {
-  'SBM': 'School of Business And Management',
-  'SDLIT': 'School of Distance Learning And Information Technology',
-  'SCPAG': 'School of Civil Service, Public Administration And Governance',
-  'SMS': 'School of Management Sciences',
-  'RC': 'Regional Centres'
-};
-
-const STable = ({ students }) => {
+const StudentTable = ({ students }) => {
   const navigate = useNavigate();
-
-  const getStatusStyle = (status) => {
-    switch (status) {
-      case 'Workshop':
-        return 'text-[#6B7280] bg-[#F3F4F6] border border-[#6B7280] rounded-md px-2 py-1';
-      case 'Normal Progress':
-        return 'text-[#0F766E] bg-[#CCFBF1] border border-[#0F766E] rounded-md px-2 py-1';
-      default:
-        return 'px-2 py-1';
-    }
-  };
 
   const handleOpenProfile = (studentId) => {
     console.log("Navigating to student:", studentId);
-    navigate(`/dashboard/students/${studentId}`);
+    navigate(`/students/profile/${studentId}`);
   };
 
   const columns = [
-    { accessorKey: "fullname", header: "Fullname" },
+    { 
+      accessorKey: "fullname",
+      header: "Fullname",
+      cell: ({ row }) =>  <span className="capitalize">{row.original.firstName} {row.original.lastName}</span>
+    },
     { accessorKey: "email", header: "Email Address" },
-    { accessorKey: "campus", header: "Campus" },
+    { accessorKey: "campus", header: "Campus", cell: ({ row }) => row.original?.campus?.name },
     { 
       accessorKey: "schoolCode",
       header: "School Code",
-      cell: ({ row }) => {
-        const schoolCode = row.original.schoolCode;
-        const fullSchoolName = schoolNames[schoolCode] || 'Unknown School';
-        
-        return (
-          <div className="flex items-center gap-1">
-            {schoolCode}
-            <SToolTip text={fullSchoolName} />
-          </div>
-        );
-      }
+      cell: ({ row }) => (
+        <div className="flex items-center gap-1">
+          {row.original?.school?.code}
+          <SToolTip text={row.original?.school?.name} />
+        </div>
+      )
     },
     { 
       accessorKey: "category",
       header: "Category",
       cell: ({ row }) => (
-        <span className="bg-[#FDD388] px-2 py-1 rounded-md">
-          {row.original.category}
+        <span className="bg-[#FDD388] px-2 py-1 rounded-md capitalize">
+          {row.original?.programLevel}
         </span>
       )
     },
@@ -62,9 +41,19 @@ const STable = ({ students }) => {
       accessorKey: "status",
       header: "Status",
       cell: ({ row }) => (
-        <span className={getStatusStyle(row.original.status)}>
-          {row.original.status}
-        </span>
+        <span
+        style={{
+          color: row.original.statuses?.find(s => s.isCurrent)?.definition?.color || '#000',
+          backgroundColor: `${row.original.statuses?.find(s => s.isCurrent)?.definition?.color}18` || '#00000018',
+          border: `1px solid ${row.original.statuses?.find(s => s.isCurrent)?.definition?.color || '#000'}`,
+          padding: '0.25rem 0.5rem',
+          borderRadius: '0.375rem',
+          display: 'inline-block'
+        }}
+        className="capitalize"
+      >
+        {row.original.statuses?.find(s => s.isCurrent)?.definition?.name?.toLowerCase() || 'Unknown'}
+      </span>
       )
     },
     {
@@ -123,4 +112,4 @@ const STable = ({ students }) => {
   );
 };
 
-export default STable;
+export default StudentTable;

@@ -65,16 +65,18 @@ function App() {
 
             {/* Protected Routes */}
             <Route
-              path="/dashboard"
+              path="/"
               element={
                 <ProtectedRoute>
                    <DashboardLayout />
                 </ProtectedRoute>
               }
             >
-              <Route index element={<Dashboard />} />
+        <Route index element={<Navigate to="/dashboard" replace />} />
+
+              <Route index path="/dashboard" element={<Dashboard />} />
               <Route path="students" element={<StudentsManagement />} />
-              <Route path="students/:id" element={<StudentProfile />} />
+              <Route path="students/profile/:id" element={<StudentProfile />} />
               <Route path="grades" element={<GradeManagement />} />
               <Route path="notifications" element={<Notifications />} />
               <Route path="user-roles" element={<UserRoles />} />

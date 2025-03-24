@@ -1,8 +1,8 @@
 import React from "react";
-import DLineChart from "./DLineChart";
-import DPieChart from "./DPieChart";
-import DTable from "./DTable";
-import DNotificationLog from "./DNotificationLog";
+import DLineChart from "./DLineChart.jsx";
+import DPieChart from "./DPieChart.jsx";
+import DTable from "./DTable.jsx";
+import DNotificationLog from "./DNotificationLog.jsx";
 
 const Dashboard = () => {
   return (

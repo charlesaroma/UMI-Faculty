@@ -4,9 +4,11 @@ import { FiSearch } from "react-icons/fi";
 import { HiArrowLeft } from "react-icons/hi";
 import { HiOutlineChartBar, HiOutlineCog } from "react-icons/hi";
 import { useNavigate, useParams } from "react-router-dom";
-import { studentsData } from "./StudentsData";
-import Progress from "./Progress.jsx";
+import { useGetStudent } from "../../store/tanstackStore/services/queries";
+import StudentProgress from "./StudentProgress.jsx";
 import AccountSettings from "./AccountSettings.jsx";
+import { toast } from "sonner";
+import { Icon } from "@iconify-icon/react";
 
 const SearchBar = ({ value, onChange, placeholder = "Search" }) => {
   return (
@@ -38,9 +40,22 @@ const StudentProfile = () => {
     }
   }, [id, activeTab]);
 
-  const studentData = useMemo(() => {
-    return studentsData.find((student) => student.id === id);
-  }, [id]);
+  const { data: studentData, isLoading, error } = useGetStudent(id);
+
+    // If loading, show loading state
+    if (isLoading) {
+      return (
+        <div className="min-h-full bg-gray-50 p-6">
+          <div className="bg-white p-4 rounded-lg shadow-sm">
+            <div className="flex items-center gap-4">
+              <span className="text-lg font-medium text-gray-900">
+                Loading student data...
+              </span>
+            </div>
+          </div>
+        </div>
+      );
+    }
 
   // If no student is found, redirect back or show error
   if (!studentData) {
@@ -66,7 +81,7 @@ const StudentProfile = () => {
 
   return (
     <div ref={containerRef} className="min-h-full bg-gray-50">
-      <div className="flex flex-col">
+      <div className="flex  flex-col">
         {/* Global Search */}
         <div className="p-4 pb-0 w-1/2">
           <SearchBar
@@ -77,49 +92,49 @@ const StudentProfile = () => {
         </div>
 
         {/* Horizontal Line */}
-        <div className="my-6 border-t border-gray-200"></div>
+        <div className="my-6 border-t  border-gray-200"></div>
 
         {/* Header */}
         <div className="flex justify-between items-center px-6 py-4">
-          <h1 className="text-2xl font-semibold text-gray-900">
+          <h1 className="text-2xl font-[Inter-SemiBold] text-gray-900">
             Student Profile
           </h1>
-          <div className="text-sm text-gray-500">
+          <div className="text-sm font-[Inter-Regular] text-gray-500">
             Last login: {format(new Date(), "MM-dd-yyyy hh:mm:ssaa")}
           </div>
         </div>
 
         {/* Control Panel */}
         <div className="px-6 py-4 mb-4">
-          <div className="bg-white p-4 rounded-lg shadow-md">
+          <div className="bg-white p-4 rounded-[10px] shadow-md">
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => navigate(-1)}
-                  className="inline-flex items-center px-4 py-2 bg-[#23388F] text-white rounded-lg gap-2 hover:bg-blue-600"
+                  className="inline-flex items-center px-4 py-2 bg-[#23388F] text-white rounded-[6px] gap-2 hover:bg-blue-600"
                 >
                   <HiArrowLeft className="w-5 h-5" />
                   Back
                 </button>
-                <span className="text-lg font-medium text-gray-900">
-                  {studentData.fullname}
+                <span className="text-lg font-[Inter-SemiBold] capitalize text-gray-900">
+                  {studentData?.student?.firstName} {studentData?.student?.lastName}
                 </span>
               </div>
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => setActiveTab("progress")}
-                  className={`inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium gap-2 text-semantic-text-primary border-2
+                  className={`inline-flex items-center px-4 py-2 rounded-[6px] text-sm font-[Inter-Medium] gap-2 text-semantic-text-primary border-2
                     ${activeTab === "progress" ? "border-[#23388F]" : "border-[#C4C5C6]"}`}
                 >
-                  <HiOutlineChartBar className="w-5 h-5 text-[#626263]" />
+                  <Icon icon="material-symbols:browse-activity-sharp" width="22" height="22" className=" text-[#626263]" />
                   Progress
                 </button>
                 <button
                   onClick={() => setActiveTab("settings")}
-                  className={`inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium gap-2 text-[#070B1D] border-2
+                  className={`inline-flex items-center px-4 py-2 rounded-[6px] text-sm font-[Inter-Medium] gap-2 text-[#070B1D] border-2
                     ${activeTab === "settings" ? "border-[#23388F]" : "border-[#C4C5C6]"}`}
                 >
-                  <HiOutlineCog className="w-5 h-5 text-[#626263]" />
+                  <Icon icon="material-symbols:manufacturing" width="22" height="22" className=" text-[#626263]" />
                   Account Settings
                 </button>
               </div>
@@ -128,7 +143,7 @@ const StudentProfile = () => {
         </div>
 
         {/* Content based on active tab */}
-        {activeTab === "progress" && <Progress studentData={studentData} />}
+        {activeTab === "progress" && <StudentProgress studentData={studentData} />}
         {activeTab === "settings" && <AccountSettings studentData={studentData} />}
       </div>
     </div>

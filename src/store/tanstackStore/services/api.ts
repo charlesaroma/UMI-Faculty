@@ -33,4 +33,33 @@ export const getFacultyProfile = async () => {
     }
 }
 
+/* ********** STUDENT MANAGEMENT ********** */
 
+export const getAllStudents = async () => {
+    try {
+        const response = await apiRequest.get("/faculty/students")
+        return response.data
+    } catch (error) {
+        errorHandling(error)
+    }
+}
+
+export const getStudent = async (studentId: string) => {
+    try {   
+        const response = await apiRequest.get(`/faculty/students/${studentId}`)
+        return response.data
+    } catch (error) {
+        errorHandling(error)
+    }
+}   
+
+export const getStudentStatuses = async (studentId: string) => {
+    try {
+        const response = await apiRequest.get(`/faculty/students/${studentId}/statuses`)
+        return response.data
+    } catch (error) {
+        errorHandling(error)
+    }
+}
+
+/* ********** END OF STUDENT MANAGEMENT ********** */
