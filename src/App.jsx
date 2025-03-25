@@ -17,7 +17,7 @@ import StudentProfile from "./pages/StudentsManagement/StudentProfile.jsx";
 import ScrollToTopWrapper from "./components/ScrollToTopWrapper.jsx";
 import { AuthProvider } from "./store/context/AuthContext.jsx";
 import { useAuth } from "./store/context/AuthContext.jsx";
-
+import SubmitStudentProposal from "./pages/StudentsManagement/SubmitStudentProposal.jsx";
 
 // PublicRoute: Redirects authenticated users away from public pages (like login)
 // If user is authenticated, redirects to dashboard
@@ -77,6 +77,7 @@ function App() {
               <Route index path="/dashboard" element={<Dashboard />} />
               <Route path="students" element={<StudentsManagement />} />
               <Route path="students/profile/:id" element={<StudentProfile />} />
+              <Route path="students/submit-proposal/:id" element={<SubmitStudentProposal />} />
               <Route path="grades" element={<GradeManagement />} />
               <Route path="notifications" element={<Notifications />} />
               <Route path="user-roles" element={<UserRoles />} />

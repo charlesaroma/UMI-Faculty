@@ -270,6 +270,7 @@ const StudentProgress = ({ studentData }) => {
             setColumnVisibility={setColumnVisibility}
             setIsStatusDrawerOpen={setIsStatusDrawerOpen}
             setSelectedStatus={setSelectedStatus} 
+            studentId={studentData?.student?.id}
           />
         )}
         {activeView === "book" && (

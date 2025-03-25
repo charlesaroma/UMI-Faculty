@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getAllStudents, getFacultyProfile, getStudent, getStudentStatuses } from './api.js';
+import { getAllStudents, getFacultyProfile, getStudent, getStudentStatuses, getStudentProposals, getProposal } from './api.js';
 
 export const useGetFacultyProfile = () => {
   return useQuery({
@@ -41,3 +41,26 @@ export const useGetStudentStatuses = (studentId: string) => {
 };
 
 /* ********** END OF STUDENT MANAGEMENT ********** */
+
+/* ********** PROPOSAL MANAGEMENT ********** */
+
+export const useGetStudentProposals = (studentId: string) => {
+  return useQuery({
+    queryKey: ['studentProposals', studentId],
+    queryFn: () => getStudentProposals(studentId),
+    retry: false,
+    refetchOnWindowFocus: false
+  });
+};
+
+export const useGetProposal = (studentId: string, proposalId: string) => {
+  return useQuery({
+    queryKey: ['proposal', studentId, proposalId],
+    queryFn: () => getProposal(studentId, proposalId),
+    retry: false,
+    refetchOnWindowFocus: false
+  });
+};
+
+
+/* ********** END OF PROPOSAL MANAGEMENT ********** */  

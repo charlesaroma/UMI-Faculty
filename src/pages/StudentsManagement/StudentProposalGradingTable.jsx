@@ -23,6 +23,7 @@ const StudentProposalGradingTable = ({
   setColumnVisibility,
   setIsStatusDrawerOpen,
   setSelectedStatus,
+  studentId,
 }) => {
   const navigate = useNavigate();
   const [globalFilter, setGlobalFilter] = React.useState("");
@@ -31,7 +32,7 @@ const StudentProposalGradingTable = ({
     return (
       <div className="p-8 text-center">
         <p className="text-gray-500 mb-3">Proposal Not Submitted</p>
-        <button className="px-4 py-2 bg-[#23388F] text-white text-sm font-medium rounded-lg hover:bg-blue-700">
+        <button  onClick={() => navigate(`/students/submit-proposal/${studentId}`)}  className="px-4 py-2 bg-[#23388F] text-white text-sm font-medium rounded-lg hover:bg-blue-700">
           Submit Proposal
         </button>
       </div>
